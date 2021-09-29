@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+.contenedor {
+    margin: 15px;
+}
+
+.alerta {
+    margin-bottom: 15px;
+}
+
+.alerta ul li {
+    background-color: black;
+    color: red;
+    font-size: 20px;
+}
+
+label {
+    font-size: 20px;
+}
+
+input {
+    padding: 5px 30px 5px 5px;
+}
+
+input[type="submit"] {
+    text-align: center;
+    padding: 10px 65px;
+}
