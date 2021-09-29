@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,16 @@
     <title>Información</title>
 </head>
 <body>
-    <h1>Información de Persona</h1>
+    <h1>Información de {{ $persona->nombre }}</h1>
+
+    <a href="{{ route('persona.index') }}">Listado de Personas</a>
+    <ul>
+        <li>{{ $persona->apellido_paterno }}  {{ $persona->apellido_materno }}</li>
+        <li>{{ $persona->codigo }}</li>
+        <li>{{ $persona->telefono }}</li>
+        <li>{{ $persona->correo }}</li>
+    </ul>
+    <hr>
+    <a href="{{ route('persona.edit', $persona) }}">Editar</a>
 </body>
 </html>

@@ -14,7 +14,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        return view('personas/personasIndex');
+        $personas = Persona::all();  //Recupera toda la información de la tabla personas
+
+        return view('personas/personasIndex', compact('personas'));
     }
 
     /**
@@ -24,6 +26,7 @@ class PersonaController extends Controller
      */
     public function create()
     {
+        
         return view('personas/personasForm');
     }
 
@@ -77,7 +80,7 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        //
+        return view('personas.personasShow', compact('persona'));
     }
 
     /**
@@ -88,7 +91,7 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        //
+        return view('personas.personasForm', compact('persona'));
     }
 
     /**
@@ -100,7 +103,31 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
-        //
+        //Validar Datos
+        $request->validate([
+            'nombre' => 'required',
+            'ap_pa' => 'required',
+            'ap_ma' => 'required',
+            'codigo' => 'required',
+            'tel' => 'required|digits:10',
+            'correo' => 'required|email',
+        ]);
+
+        //No se crea la instancia debido a que se recibe como parámetro
+
+        //Asignar propiedades del modelo
+        $persona->nombre = $request->nombre;
+        $persona->apellido_paterno = $request->ap_pa;
+        $persona->apellido_materno = $request->ap_ma;
+        $persona->codigo = $request->codigo;
+        $persona->telefono = $request->tel;
+        $persona->correo = $request->correo;
+
+        //Guardar
+        $persona->save();
+
+        //Redireccionar a index
+        return redirect()->route('persona.show', $persona);
     }
 
     /**

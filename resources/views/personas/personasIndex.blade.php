@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,5 +8,38 @@
 </head>
 <body>
     <h1>Listado Personas</h1>
+    <a href="{{ route('persona.create') }}">Agregar Persona</a>
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Código</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($personas as $persona)
+                <tr>
+                    <td>
+                        <a href="{{ route('persona.show', $persona->id) }}">
+                            {{ $persona->id }}
+                        </a>
+                    </td>
+                    <td>{{ $persona->nombre }}</td>
+                    <td>{{ $persona->apellido_paterno }}</td>
+                    <td>{{ $persona->apellido_materno }}</td>
+                    <td>{{ $persona->codigo }}</td>
+                    <td>{{ $persona->telefono }}</td>
+                    <td>{{ $persona->correo }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
