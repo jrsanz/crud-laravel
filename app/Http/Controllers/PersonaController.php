@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PersonaController extends Controller
 {
@@ -47,15 +48,18 @@ class PersonaController extends Controller
         //Validar Datos
         $request->validate([
             'nombre' => 'required',
-            'ap_pa' => 'required',
-            'ap_ma' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
             'codigo' => 'required',
-            'tel' => 'required|digits:10',
+            'telefono' => 'required|digits:10',
             'correo' => 'required|email',
         ]);
 
+        //Crear registro utilizando el modelo
+        Persona::create($request->all());
+
         //Crear instancia del modelo
-        $persona = new Persona();
+        /*$persona = new Persona();
 
         //Asignar propiedades del modelo
         $persona->nombre = $request->nombre;
@@ -66,7 +70,7 @@ class PersonaController extends Controller
         $persona->correo = $request->correo;
 
         //Guardar
-        $persona->save();
+        $persona->save();*/
 
         //Redireccionar a index
         return redirect()->route('persona.index');
@@ -106,10 +110,10 @@ class PersonaController extends Controller
         //Validar Datos
         $request->validate([
             'nombre' => 'required',
-            'ap_pa' => 'required',
-            'ap_ma' => 'required',
-            'codigo' => 'required',
-            'tel' => 'required|digits:10',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'codigo' => ['required', Rule::unique('personas')->ignore($persona->id)],
+            'telefono' => 'required|digits:10',
             'correo' => 'required|email',
         ]);
 
@@ -117,10 +121,10 @@ class PersonaController extends Controller
 
         //Asignar propiedades del modelo
         $persona->nombre = $request->nombre;
-        $persona->apellido_paterno = $request->ap_pa;
-        $persona->apellido_materno = $request->ap_ma;
+        $persona->apellido_paterno = $request->apellido_paterno;
+        $persona->apellido_materno = $request->apellido_materno;
         $persona->codigo = $request->codigo;
-        $persona->telefono = $request->tel;
+        $persona->telefono = $request->telefono;
         $persona->correo = $request->correo;
 
         //Guardar
@@ -138,6 +142,7 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
-        //
+        $persona->delete();
+        return redirect()->route('persona.index');
     }
 }

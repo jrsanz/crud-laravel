@@ -36,22 +36,23 @@
             <input type="text" name="nombre" value="{{ $persona->nombre ?? '' }}" required>
             <br><br>
             <label for="ap_pa">Apellido Paterno</label><br>
-            <input type="text" name="ap_pa" value="{{ $persona->apellido_paterno ?? '' }}" required>
+            <input type="text" name="apellido_paterno" value="{{ $persona->apellido_paterno ?? '' }}" required>
             <br><br>
             <label for="ap_ma">Apellido Materno</label><br>
-            <input type="text" name="ap_ma" value="{{ $persona->apellido_materno ?? '' }}" required>
+            <input type="text" name="apellido_materno" value="{{ $persona->apellido_materno ?? '' }}" required>
             <br><br>
             <label for="codigo">Código</label><br>
             <input type="text" name="codigo" value="{{ $persona->codigo ?? '' }}" required>
             <br><br>
             <label for="tel">Teléfono</label><br>
-            <input type="text" name="tel" maxlength="10" value="{{ $persona->telefono ?? '' }}" required>
+            <input type="text" name="telefono" maxlength="10" value="{{ $persona->telefono ?? '' }}" required>
             <br><br>
             <label for="correo">Correo</label><br>
             <input type="email" name="correo" value="{{ $persona->correo ?? '' }}" required>
             <br><br>
             <input type="submit" value="Enviar Datos">
         </form>
+        <br>
     </div>
 </body>
 </html>
