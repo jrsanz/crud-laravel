@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+
 
 class PersonaController extends Controller
 {
@@ -15,7 +17,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        $personas = Persona::all();  //Recupera toda la información de la tabla personas
+        //$personas = Persona::all();  //Recupera toda la información de la tabla personas
+
+        $personas = Auth::user()->personas()->get();  //Recupera la información de las personas que creó un usuario
 
         return view('personas/personasIndex', compact('personas'));
     }
@@ -53,6 +57,10 @@ class PersonaController extends Controller
             'codigo' => 'required',
             'telefono' => 'required|digits:10',
             'correo' => 'required|email',
+        ]);
+
+        $request->merge([
+            'user_id' => Auth::id(),
         ]);
 
         //Crear registro utilizando el modelo
@@ -117,6 +125,7 @@ class PersonaController extends Controller
             'correo' => 'required|email',
         ]);
 
+        /*
         //No se crea la instancia debido a que se recibe como parámetro
 
         //Asignar propiedades del modelo
@@ -129,6 +138,10 @@ class PersonaController extends Controller
 
         //Guardar
         $persona->save();
+        */
+
+        //Actualiza todos los campos excepto el token y el method
+        Persona::where('id', $persona->id)->update($request->except('_token', '_method'));
 
         //Redireccionar a index
         return redirect()->route('persona.show', $persona);
