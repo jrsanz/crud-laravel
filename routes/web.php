@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('persona', PersonaController::class);
+//Route::resource('persona', PersonaController::class)->middleware('auth');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

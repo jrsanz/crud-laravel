@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PersonaController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +22,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //$personas = Persona::all();  //Recupera toda la información de la tabla personas
+        $personas = Persona::all();  //Recupera toda la información de la tabla personas
 
-        $personas = Auth::user()->personas()->get();  //Recupera la información de las personas que creó un usuario
+        //$personas = Auth::user()->personas()->get();  //Recupera la información de las personas que creó un usuario
 
         return view('personas/personasIndex', compact('personas'));
     }
