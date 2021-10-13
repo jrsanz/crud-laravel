@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
+use App\Models\Area;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +37,8 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        
-        return view('personas/personasForm');
+        $areas = Area::all();
+        return view('personas/personasForm', compact('areas'));
     }
 
     /**
@@ -69,7 +70,8 @@ class PersonaController extends Controller
         ]);
 
         //Crear registro utilizando el modelo
-        Persona::create($request->all());
+        $persona = Persona::create($request->all());
+        $persona->areas()->attach($request->area_id);  //Al guardar una persona también lo guardará en la relación area_persona
 
         //Crear instancia del modelo
         /*$persona = new Persona();
@@ -108,7 +110,8 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        return view('personas.personasForm', compact('persona'));
+        $areas = Area::all();
+        return view('personas.personasForm', compact('persona', 'areas'));
     }
 
     /**
@@ -146,7 +149,9 @@ class PersonaController extends Controller
         */
 
         //Actualiza todos los campos excepto el token y el method
-        Persona::where('id', $persona->id)->update($request->except('_token', '_method'));
+        Persona::where('id', $persona->id)->update($request->except('_token', '_method', 'area_id'));
+
+        $persona->areas()->sync($request->area_id);  //Se deja la relación que ya se tenía
 
         //Redireccionar a index
         return redirect()->route('persona.show', $persona);

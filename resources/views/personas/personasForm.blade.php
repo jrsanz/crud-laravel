@@ -50,6 +50,13 @@
             <label for="correo">Correo</label><br>
             <input type="email" name="correo" value="{{ $persona->correo ?? '' }}" required>
             <br><br>
+            <label for="area_id">Área</label><br>
+            <select name="area_id[]" multiple>
+                @foreach($areas as $area)
+                    <option value="{{ $area->id }}" {{ array_search($area->id, $persona->areas->pluck('id')->toArray()) === false ? '' : 'selected' }} >{{ $area->nombre_area }}</option>
+                @endforeach
+            </select>
+            <br><br>
             <input type="submit" value="Enviar Datos">
         </form>
         <br>
