@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado Personas</title>
-</head>
-<body>
+@extends('layouts.mi-layout')
+
+@section('contenido')
     <h1>Listado Personas</h1>
     <a href="{{ route('persona.create') }}">Agregar Persona</a>
     <br><br>
@@ -22,6 +16,7 @@
                 <th>Código</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>Nombre Completo</th>
             </tr>
         </thead>
         <tbody>
@@ -45,9 +40,9 @@
                     <td>{{ $persona->codigo }}</td>
                     <td>{{ $persona->telefono }}</td>
                     <td>{{ $persona->correo }}</td>
+                    <td>{{ $persona->nombre_completo }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+@endsection

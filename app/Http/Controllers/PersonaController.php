@@ -23,7 +23,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        $personas = Persona::all();  //Recupera toda la información de la tabla personas
+        //$personas = Persona::all();  //Recupera toda la información de la tabla personas
+
+        $personas = Persona::with('areas')->get();  //Elimina el problema de n+1 consultas (reduce las consultas SQL que se hacen en el sistema)
 
         //$personas = Auth::user()->personas()->get();  //Recupera la información de las personas que creó un usuario
 
