@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Reporte;
 use App\Models\Persona;
 use App\Models\Area;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class PersonaController extends Controller
@@ -169,5 +171,11 @@ class PersonaController extends Controller
     {
         $persona->delete();
         return redirect()->route('persona.index');
+    }
+
+    public function enviarReporte()
+    {
+        Mail::to('alguien@test.com')->send(new Reporte);
+        return redirect()->back();  //Se recarga la página actual
     }
 }

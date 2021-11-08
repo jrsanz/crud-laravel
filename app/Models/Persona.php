@@ -17,7 +17,9 @@ class Persona extends Model
         'apellido_materno',
         'codigo',
         'telefono',
-        'correo'
+        'correo',
+        'archivo',
+        'mime'
     ];
 
     public function user()

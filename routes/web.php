@@ -21,6 +21,8 @@ Route::get('/', function () {
 Route::resource('persona', PersonaController::class);
 //Route::resource('persona', PersonaController::class)->middleware('auth');
 
+Route::get('enviar-correo', [PersonaController::class, 'enviarReporte'])->name('enviar-correo');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

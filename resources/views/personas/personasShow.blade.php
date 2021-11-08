@@ -18,4 +18,6 @@
         @csrf
         <input type="submit" value="Eliminar">
     </form>
+    <hr>
+    <a href="{{ route('enviar-correo') }}">Enviar correo</a>
 </x-mi-layout>

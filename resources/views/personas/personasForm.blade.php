@@ -27,7 +27,7 @@
             <form action="{{ route('persona.update', $persona) }}" method="POST">
             @method('PATCH')
         @else
-            <form action="{{ route('persona.store') }}" method="POST">
+            <form action="{{ route('persona.store') }}" method="POST" enctype="multipart/form-data">
         @endif
             
             @csrf
@@ -56,6 +56,8 @@
                     <option value="{{ $area->id }}" {{ isset($persona) && array_search($area->id, $persona->areas->pluck('id')->toArray()) === false ? '' : 'selected' }} >{{ $area->nombre_area }}</option>
                 @endforeach
             </select>
+            <br><br>
+            <input type="file" name="archivo">
             <br><br>
             <input type="submit" value="Enviar Datos">
         </form>
